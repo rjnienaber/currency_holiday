@@ -3,6 +3,7 @@
         <h1>Pay For Your Holiday</h1>
     </div>
 </div>
+
 <div class="row">
     <div class="span3">
         <h2>Summer 2014</h2>
@@ -12,17 +13,31 @@
         <h2>Payment to Super Ranch</h2>
         <p>Check the details below for your payment to Super Ranch:</p>
 
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="POST" action="/make_payment">
+            <input type="hidden" name="payment_details[sell_currency]" value="EUR" />
+            <input type="hidden" name="payment_details[buy_currency]" value="USD" />
+            <input type="hidden" name="payment_details[side]" value="1" />
+
+            <input type="hidden" name="account_details[destination_country_code]" value="GB" />
+            <input type="hidden" name="account_details[nickname]" value="Super Ranch" />
+
             <div class="control-group">
-                <label class="control-label" for="inputAccountNumber">Account Number</label>
+                <label class="control-label" for="inputAccountName">Account Name</label>
                 <div class="controls">
-                    <input type="text" id="inputAccountNumber" placeholder="Account Number"></input>
+                    <input type="text" id="inputAccountName" name="account_details[beneficiary_name]" placeholder="Account Name"></input>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="inputIban">Iban</label>
+                <div class="controls">
+                    <input type="text" id="inputIban" name="account_details[iban]" placeholder="Iban"></input>
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputBicSwift">Bic/Swift</label>
                 <div class="controls">
-                    <input type="password" id="inputBicSwift" placeholder="Bic Swift"></input>
+                    <input type="text" id="inputBicSwift" name="account_details[bic_swift]" placeholder="Bic Swift"></input>
                 </div>
             </div>
             <div class="control-group">
@@ -30,7 +45,7 @@
                 <div class="controls">
                     <div class="input-prepend">
                     <span class="add-on">USD</span>
-                    <input class="span2" id="inputAmount" type="text" placeholder="Amount"></input>
+                    <input class="span2" id="inputAmount" type="text" name="payment_details[amount]" placeholder="Amount"></input>
                 </div>
                 </div>
             </div>
@@ -45,4 +60,3 @@
         </form>
     </div>
 </div>
-

@@ -1,6 +1,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var CurrencyCloud = require('./lib/currency_cloud');
 
 partials = require('express-partials')
 var app = express();
@@ -28,6 +29,21 @@ app.get('/final_payment',function(req,res,next){
     res.render('final_payment.ejs')
     // -> render layout.ejs with index.ejs as `body`.
 })
+
+app.post('/make_payment', function(request, response){
+	
+	payment_details = request.body.payment_details;
+	account_details = request.body.account_details;
+	account_details.acct_ccy = payment_details.buy_currency;
+	
+    cc_api = new CurrencyCloud('rachel.nienaber@thecurrencycloud.com', '1096bf354cd7396c33cde2f6393843ffd333be310242a2b972b1cabc978036ab')
+ 	cc_api.make_payment(account_details, payment_details, function(beneficiary, execution) {
+ 		message = 'BENEFICIARY ID: ' + beneficiary.beneficiary_id;
+ 		message = 'CLIENT RATE: ' + execution.client_rate;
+ 	
+ 		response.send(message);	
+ 	});
+});
 
 
 
