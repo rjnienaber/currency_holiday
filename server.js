@@ -38,10 +38,10 @@ app.post('/make_payment', function(request, response){
 	
     cc_api = new CurrencyCloud('rachel.nienaber@thecurrencycloud.com', '1096bf354cd7396c33cde2f6393843ffd333be310242a2b972b1cabc978036ab')
  	cc_api.make_payment(account_details, payment_details, function(beneficiary, execution) {
- 		message = 'BENEFICIARY ID: ' + beneficiary.beneficiary_id;
- 		message = 'CLIENT RATE: ' + execution.client_rate;
- 	
- 		response.send(message);	
+// 		message = 'BENEFICIARY ID: ' + beneficiary.beneficiary_id;
+// 		message = 'CLIENT RATE: ' + execution.client_rate;
+
+        response.render('final_payment_confirmation.ejs', {reference: execution.trade_id})
  	});
 });
 
