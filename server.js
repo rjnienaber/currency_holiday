@@ -27,7 +27,6 @@ if ('development' == app.get('env')) {
 
 app.get('/final_payment',function(req,res,next){
     res.render('final_payment.ejs')
-    // -> render layout.ejs with index.ejs as `body`.
 })
 
 app.post('/make_payment', function(request, response){
@@ -38,26 +37,20 @@ app.post('/make_payment', function(request, response){
 	
     cc_api = new CurrencyCloud('rachel.nienaber@thecurrencycloud.com', '1096bf354cd7396c33cde2f6393843ffd333be310242a2b972b1cabc978036ab')
  	cc_api.make_payment(account_details, payment_details, function(beneficiary, execution) {
-// 		message = 'BENEFICIARY ID: ' + beneficiary.beneficiary_id;
-// 		message = 'CLIENT RATE: ' + execution.client_rate;
-
         response.render('final_payment_confirmation.ejs', {reference: execution.trade_id})
  	});
 });
 
 app.get('/friend_payment',function(req,res,next){
     res.render('friend_payment.ejs')
-    // -> render layout.ejs with index.ejs as `body`.
 })
 
 app.get('/list',function(req,res,next){
     res.render('list.ejs');
-    // -> render layout.ejs with index.ejs as `body`.
 })
 
 app.get('/view',function(req,res,next){
     res.render('view.ejs');
-    // -> render layout.ejs with index.ejs as `body`.
 })
 
 app.listen(3000);
