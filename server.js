@@ -1,7 +1,9 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var url = require('url');
 var CurrencyCloud = require('./lib/currency_cloud');
+var MangoPay = require('./lib/MangoPay');
 
 partials = require('express-partials')
 var app = express();
@@ -39,6 +41,55 @@ app.post('/make_payment', function(request, response){
  	cc_api.make_payment(account_details, payment_details, function(beneficiary, execution) {
         response.render('final_payment_confirmation.ejs', {reference: execution.trade_id})
  	});
+});
+
+app.get('/mangopay_return', function (request, response){
+
+    var url = require('url');
+    var util = require('util');
+
+    var url_parts = url.parse(request.url, true);
+    var query = url_parts.query;
+    util.puts(query.data)
+    util.puts(query.id)
+
+    var registrationData =  query.data;
+    var registrationId = query.id;
+
+    mangopay_api = new MangoPay("currencyholiday", "HNFz3i3eNyvQ7pqp0Wp33qaWmtoajKqZFxsfA95U3xMJ3C87EX")
+
+    mangopay_api.update_cardregistration(registrationId , registrationData, function (data){
+        util.puts(data.CardId)
+    })
+
+});
+
+app.get('/make_payment_mangopay', function(request, response){
+
+    var user = {
+        FirstName: "Victor",
+        LastName: "Hugo",
+        Email:"etienne@leetchi.com",
+        CountryOfResidence: "FR",
+        Birthday : 1300186358,
+        Nationality: "FR"
+    };
+
+    mangopay_api = new MangoPay("currencyholiday", "HNFz3i3eNyvQ7pqp0Wp33qaWmtoajKqZFxsfA95U3xMJ3C87EX")
+    mangopay_api.create_user(user, function(data){
+        var userId = data.Id;
+        var wallet = self.build_wallet(data.Id, "EUR", "go to holiday!!")
+        self.create_wallet(wallet, function(data){
+            var cardregistration = self.build_cardRegistration(userId, "EUR")
+            mangopay_api.create_registrationcard(cardregistration, function(registrationReturn){
+                //util.puts(registrationReturn.PreregistrationData)
+                response.render('friend_payment.ejs', {
+                    reference: registrationReturn.PreregistrationData,
+                    registrationCardId : registrationReturn.Id
+                })
+            })
+        })
+    })
 });
 
 app.get('/friend_payment',function(req,res,next){

@@ -12,66 +12,103 @@
         <h2>Payment to group</h2>
         <p>Please enter your details below to pay into the group account:</p>
 
-        <form class="form-horizontal">
+
+        <form id="paymentForm" action="https://homologation-webpayment.payline.com/webpayment/getToken" method="post" target="_blank">
+
+            <label for="accessKeyRef">Access Key</label>
+            <input type="text" name="accessKeyRef" id="accessKeyRef" value="1X0m87dmM2LiwFgxPLBJ" />
+            <div class="clear"></div>
+
+            <label for="accessKeyRef">Data Piece</label>
+            <input type="text" name="data" id="data" value="<%- reference %>" />
+            <div class="clear"></div>
+
+            <label for="returnURL">Return URL</label>
+            <input type="text" name="returnURL" id="returnURL" value="http://localhost:3000/mangopay_return?id=<%- registrationCardId %>" />
+            <div class="clear"></div>
+
+            <label for="cardNumber">Card Number</label>
+            <input type="text" name="cardNumber" id="cardNumber" value="4970101122334414" />
+            <div class="clear"></div>
+
+            <label for="cardExpirationDate">Expiration Date</label>
+            <input type="text" name="cardExpirationDate" id="cardExpirationDate" value="1214" />
+            <div class="clear"></div>
+
+            <label for="cardCvx">CVV</label>
+            <input type="text" name="cardCvx" id="cardCvx" value="086" />
+            <div class="clear"></div>
+
+            <input type="submit" id="submit" value="Pay" />
+            <div class="clear"></div>
 
 
-            <div class="control-group">
-                <label class="control-label" for="accessKeyRef">Access Key</label>
-                <div class="controls">
-                    <input type="text" id="accessKeyRef" value="1X0m87dmM2LiwFgxPLBJ" ></input>
-                </div>
-            </div>
 
-            <div class="control-group">
-                <label class="control-label" for="data">Data</label>
-                <div class="controls">
-                    <input type="text" id="data" value="" ></input>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="returnURL">Return URL</label>
-                <div class="controls">
-                    <input type="text" id="returnURL" value="http://www.mosaic-lab.com/demo/payline/response.php" ></input>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <label class="control-label" for="cardNumber">Card Number</label>
-                <div class="controls">
-                    <input type="text" id="cardNumber" placeholder="Card Number"></input>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="cardExpirationDate">Expiration Date</label>
-                <div class="controls">
-                    <input type="text" id="cardExpirationDate" placeholder="Expiration Date"></input>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="cardCvx">CVV</label>
-                <div class="controls">
-                    <input type="text" id="cardCvx" placeholder="CVV"></input>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="inputAmount">Amount</label>
-                <div class="controls">
-                    <div class="input-prepend">
-                    <span class="add-on">EUR</span>
-                    <input class="span2" id="inputAmount" type="text" placeholder="Amount"></input>
-                </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <label class="checkbox">
-                        <input type="checkbox"> I accept the terms and conditions</input>
-                    </label>
-                    <button type="submit" class="btn">Make Payment</button>
-                </div>
-            </div>
         </form>
+
+
+        <!--
+                <form id="paymentForm" class="form-horizontal" action="https://homologation-webpayment.payline.com/webpayment/getToken" method="post" target="_blank">
+
+
+                    <div class="control-group">
+                        <label class="control-label" for="accessKeyRef">Access Key</label>
+                        <div class="controls">
+                            <input type="text" name="accessKeyRef" id="accessKeyRef" value="1X0m87dmM2LiwFgxPLBJ" />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="data">Data</label>
+                        <div class="controls">
+                            <input type="text" id="data" name="data" value="<%- reference %>" ></input>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="returnURL">Return URL</label>
+                        <div class="controls">
+                            <input type="hidden" id="returnURL" name="returnURL" value="http://www.mosaic-lab.com/demo/payline/response.php" ></input>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="cardNumber">Card Number</label>
+                        <div class="controls">
+                            <input type="text" id="cardNumber" data="cardNumber" placeholder="Card Number"></input>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="cardExpirationDate">Expiration Date</label>
+                        <div class="controls">
+                            <input type="text" id="cardExpirationDate" name="cardExpirationDate" placeholder="Expiration Date"></input>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="cardCvx">CVV</label>
+                        <div class="controls">
+                            <input type="text" id="cardCvx" name="cardCvx" placeholder="CVV"></input>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputAmount">Amount</label>
+                        <div class="controls">
+                            <div class="input-prepend">
+                            <span class="add-on">EUR</span>
+                            <input class="span2" id="inputAmount" type="text" placeholder="Amount"></input>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox"> I accept the terms and conditions</input>
+                            </label>
+                            <button type="submit" id="submit" class="btn">Make Payment</button>
+                        </div>
+                    </div>
+                </form>
+        -->
 
         <div class="alert alert-success hidden">
             Success! Your reference is:
