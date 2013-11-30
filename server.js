@@ -45,7 +45,20 @@ app.post('/make_payment', function(request, response){
  	});
 });
 
+app.get('/friend_payment',function(req,res,next){
+    res.render('friend_payment.ejs')
+    // -> render layout.ejs with index.ejs as `body`.
+})
 
+app.get('/list',function(req,res,next){
+    res.render('list.ejs')
+    // -> render layout.ejs with index.ejs as `body`.
+})
+
+app.get('/view',function(req,res,next){
+    res.render('view.ejs')
+    // -> render layout.ejs with index.ejs as `body`.
+})
 
 app.listen(3000);
 console.log('Listening on port 3000');
