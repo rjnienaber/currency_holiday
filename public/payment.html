@@ -1,0 +1,26 @@
+<html>
+<head></head>
+<body>
+
+test
+<div id="supply_list"></div>
+
+<script type="text/javascript" src="assets/js/ejs_production.js"></script>
+
+
+<script type="text/javascript">
+
+    var my_supplies = {supplies: ['mop', 'broom', 'duster']}
+    var result = new EJS({url: 'templates/payment.ejs'}).render(my_supplies);
+    document.getElementById('supply_list').innerHTML = result
+</script>
+
+</body>
+
+
+
+</html>
+
+
+
+
