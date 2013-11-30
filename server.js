@@ -27,6 +27,10 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+app.get('/login',function(req,res,next){
+    res.render('login.ejs')
+    // -> render layout.ejs with index.ejs as `body`.
+})
 app.get('/final_payment',function(req,res,next){
     res.render('final_payment.ejs')
 })
